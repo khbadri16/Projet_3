@@ -19,7 +19,9 @@ export default function Editpostt() {
   const userData = useUserdata();
   return (
     <UserContext.Provider value={userData}>
-      <CreateNewPost />
+      <AuthCheck>
+        <CreateNewPost />
+      </AuthCheck>
     </UserContext.Provider>
   );
 }

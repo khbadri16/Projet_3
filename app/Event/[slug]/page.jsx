@@ -1,6 +1,9 @@
 "use client";
 import { db } from "@/app/firebase/config";
+import AdminCheck from "@/componenets/Admincheck";
 import ImageUploader from "@/componenets/ImageUploade";
+import { UserContext } from "@/lib/context";
+import useUserdata from "@/lib/hooks";
 import {
   collection,
   deleteDoc,
@@ -17,9 +20,16 @@ import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 
 export default function Editpost({ params }) {
+  const userData = useUserdata();
   const { slug } = params;
 
-  return <EventManager slug={slug} />;
+  return (
+    <UserContext.Provider value={userData}>
+      <AdminCheck>
+        <EventManager slug={slug} />
+      </AdminCheck>
+    </UserContext.Provider>
+  );
 }
 
 function EventManager({ slug }) {

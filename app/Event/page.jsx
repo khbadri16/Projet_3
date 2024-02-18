@@ -15,12 +15,15 @@ import {
   setDoc,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
+import AdminCheck from "@/componenets/Admincheck";
 
 export default function Editevent(props) {
   const userData = useUserdata();
   return (
     <UserContext.Provider value={userData}>
-      <CreateNewevent />
+      <AdminCheck>
+        <CreateNewevent />
+      </AdminCheck>
     </UserContext.Provider>
   );
 }

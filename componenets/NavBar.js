@@ -4,17 +4,11 @@ import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { UserContext } from "@/lib/context";
 import { auth } from "@/app/firebase/config";
-import { useAuthState } from "react-firebase-hooks/auth";
+import AdminCheck from "./Admincheck";
 
 export default function Navbar() {
   const { user, username } = useContext(UserContext);
   const router = useRouter();
-  let ifyes = null;
-  if (auth.currentUser) {
-    if (auth.currentUser.uid == "MQM0JYgIY4M5dMvLS6XHohqD6Ow2") {
-      ifyes = true;
-    }
-  }
 
   const signOut = () => {
     auth.signOut();
@@ -35,13 +29,27 @@ export default function Navbar() {
 
         {user && (
           <>
-            {ifyes && (
-              <li className="Event">
-                <Link href="/Event">
-                  <button className="btn-blue">Event</button>
-                </Link>
-              </li>
-            )}
+            <AdminCheck>
+              <>
+                <li className="Event">
+                  <Link href="/Event">
+                    <button className="btn-blue">add Event</button>
+                  </Link>
+                </li>
+
+                <li className="Event">
+                  <Link href="/ShowEvent">
+                    <button className="btn-blue">Events</button>
+                  </Link>
+                </li>
+
+                <li className="Event">
+                  <Link href="/Espace_admin">
+                    <button className="btn-blue">Admin</button>
+                  </Link>
+                </li>
+              </>
+            </AdminCheck>
 
             <li className="push-left">
               <button onClick={signOut}>Sign Out</button>
@@ -60,12 +68,24 @@ export default function Navbar() {
         )}
 
         {!user && (
-          <li>
-            <Link href="/sign_in">
-              <button className="btn-blue">Log in</button>
-            </Link>
-          </li>
+          <>
+            <li>
+              <Link href="/sign_in">
+                <button className="btn-blue">Log in</button>
+              </Link>
+            </li>
+            <li>
+              <Link href="/donne_sang">
+                <button className="btn-blue">Don du sang</button>
+              </Link>
+            </li>
+          </>
         )}
+        <li>
+          <Link href="/Maison_Eljiida">
+            <button className="btn-blue">Maison</button>
+          </Link>
+        </li>
       </ul>
     </nav>
   );

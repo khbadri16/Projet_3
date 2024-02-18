@@ -1,13 +1,6 @@
 "use client";
 import { db } from "@/app/firebase/config";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  onSnapshot,
-  setDoc,
-} from "firebase/firestore";
+import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
