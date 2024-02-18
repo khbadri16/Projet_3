@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 import toast from "react-hot-toast";
 
-export default function editpost(props) {
+export default function Editpostt() {
   const userData = useUserdata();
   return (
     <UserContext.Provider value={userData}>
