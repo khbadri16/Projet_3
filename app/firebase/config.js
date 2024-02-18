@@ -1,12 +1,8 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import "firebase/firestore";
-import "firebase/firestore";
-import "firebase/auth";
 import firebase from "firebase/app";
 import { getFirestore, getDoc, getDocs } from "firebase/firestore";
 import { collection, query, where, limit } from "firebase/firestore";
-import { serverTimestamp } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
