@@ -12,6 +12,7 @@ import {
 import toast from "react-hot-toast";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { auth, db, storage } from "@/app/firebase/config";
+import { useRouter } from "next/navigation";
 
 const SignUpp = () => {
   const [email, setEmail] = useState("");
@@ -20,10 +21,10 @@ const SignUpp = () => {
   const [createUserWithEmailAndPassword] =
     useCreateUserWithEmailAndPassword(auth);
   const [profilePicture, setProfilePicture] = useState(null);
+  const router = useRouter();
 
   const handleSignUp = async () => {
     try {
-      setLoading(true);
       const usernameExists = await checkUsernameExists(username);
 
       if (usernameExists) {
@@ -52,10 +53,9 @@ const SignUpp = () => {
       setPassword("");
       setUsername("");
       toast.success("User create secsusfully");
+      router.push("/");
     } catch (e) {
       console.error(e);
-    } finally {
-      setLoading(false);
     }
   };
 
