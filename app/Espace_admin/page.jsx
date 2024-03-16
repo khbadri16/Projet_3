@@ -8,6 +8,9 @@ import React from "react";
 import { UserContext } from "@/lib/context";
 import useUserdata from "@/lib/hooks";
 import SignUpp from "@/components_3/Sign";
+import Addpartner from "@/components_3/Addpartner";
+import Addmedicament from "@/components_4/addMed";
+import ShowdemanMed from "@/components_4/showdemand";
 
 export default function Admin() {
   const userData = useUserdata();
@@ -24,6 +27,15 @@ export default function Admin() {
           <Separer />
           <Titre titre={"ajouter un Membre"} />
           <SignUpp />
+          <Separer />
+          <Titre titre={"ajouter un Partenair"} />
+          <Addpartner />
+          <Separer />
+          <Titre titre={"ajouter un Medicament"} />
+          <Addmedicament />
+          <Separer />
+          <Titre titre={"Liste de damande des medicament"} />
+          <ShowdemanMed />
         </AdminCheck>
       </UserContext.Provider>
     </>

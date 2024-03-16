@@ -112,7 +112,7 @@ function EventForm({ defaultValues, eventRef, preview }) {
   return (
     <form onSubmit={handleSubmit(updatePost)} className="formm">
       {preview && (
-        <div className="card">
+        <div className="cardd">
           <ReactMarkdown>{watch("content")}</ReactMarkdown>
         </div>
       )}

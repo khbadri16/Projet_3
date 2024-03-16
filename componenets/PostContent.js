@@ -7,7 +7,7 @@ export default function PostContent({ post }) {
   const createdAt = new Date(post.createdAt);
 
   return (
-    <div className="card">
+    <div className="cardd">
       <h1>{post?.title}</h1>
       <span className="text-sm">
         Written by{" "}

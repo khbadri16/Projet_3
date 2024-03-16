@@ -25,18 +25,18 @@ export default function Navbar1() {
 
   const handleNavbarClick = () => {
     setNavbar(!navbar);
-    setEventDropdownOpen(false); // Close event dropdown
-    setActivityDropdownOpen(false); // Close activity dropdown
+    setEventDropdownOpen(false);
+    setActivityDropdownOpen(false);
   };
 
   const handleEventDropdownClick = () => {
     setEventDropdownOpen(!eventDropdownOpen);
-    setActivityDropdownOpen(false); // Close activity dropdown
+    setActivityDropdownOpen(false);
   };
 
   const handleActivityDropdownClick = () => {
     setActivityDropdownOpen(!activityDropdownOpen);
-    setEventDropdownOpen(false); // Close event dropdown
+    setEventDropdownOpen(false);
   };
 
   const handleUserDropdownClick = () => {
@@ -140,7 +140,7 @@ export default function Navbar1() {
               {/* LOGO */}
               <Link href="/">
                 <div className="flex items-center">
-                  <img src="/logo.png" className="h-12 md:h-16" alt="Logo" />
+                  <img src="/logo.png" className="h-10 md:h-10" alt="Logo" />
                   {/* TITLE */}
                   <h2 className="text-2xl md:text-xl text-black font-bold ml-4">
                     CPF
@@ -220,6 +220,15 @@ export default function Navbar1() {
                         Maison Eljiida
                       </Link>
                     </li>
+                    <li className="py-2 px-4 transition duration-300 ease-in-out hover:bg-blue-600 hover:text-white text-center">
+                      <Link
+                        href="/Medicament"
+                        className="block"
+                        onClick={handleNavbarClick}
+                      >
+                        PharmDemande
+                      </Link>
+                    </li>
                   </ul>
                 </li>
 
@@ -233,8 +242,8 @@ export default function Navbar1() {
                 <li
                   className={`pb-6 text-xl text-black py-2 px-6 text-center border-b-2 md:border-b-0 hover:bg-blue-600 border-blue-900 md:hover:text-blue-600 md:hover:bg-transparent`}
                 >
-                  <Link href="#projects" onClick={() => setNavbar(!navbar)}>
-                    Projects
+                  <Link href="/partner" onClick={() => setNavbar(!navbar)}>
+                    Nos partenaires
                   </Link>
                 </li>
                 <li
@@ -257,7 +266,7 @@ export default function Navbar1() {
                   >
                     <li className="py-2 px-4 transition duration-300 ease-in-out hover:bg-blue-600 hover:text-white text-center">
                       <Link
-                        href="/ShowEvent"
+                        href="/ShowEvent/ShowEventc"
                         className="block"
                         onClick={handleNavbarClick}
                       >
@@ -275,7 +284,6 @@ export default function Navbar1() {
                     </li>
                   </ul>
                 </li>
-
                 {userDropdown}
                 {signInLink}
               </ul>

@@ -64,7 +64,7 @@ function Participant({ participant }) {
 
   return (
     <>
-      <div className="card">
+      <div className="cardd">
         <strong>{participant.username}</strong>
         <h2>{participant.phone_1}</h2>
         <h2>{participant.phone_2}</h2>

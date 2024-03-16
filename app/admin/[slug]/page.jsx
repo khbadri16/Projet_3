@@ -107,7 +107,7 @@ function PostForm({ defaultValues, postRef, preview }) {
   return (
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (
-        <div className="card">
+        <div className="cardd">
           <ReactMarkdown>{watch("content")}</ReactMarkdown>
         </div>
       )}

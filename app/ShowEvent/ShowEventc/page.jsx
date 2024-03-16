@@ -10,16 +10,15 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db, postToJSON } from "../firebase/config";
-import Loader from "@/componenets/loader";
-import Addbutton from "@/components_3/addButton";
-import useUserdata from "@/lib/hooks";
+import { db } from "@/app/firebase/config";
 import { UserContext } from "@/lib/context";
+import useUserdata from "@/lib/hooks";
 import AdminCheck from "@/componenets/Admincheck";
+import Addbutton from "@/components_3/addButton";
 import Navbar2 from "@/components_3/Navbar1.2";
 import EventComponent from "@/components_4/addEvent";
 
-export default function ShowEvent() {
+export default function ShowEventc() {
   const [events, setEvents] = useState(null);
   const [loading, setLoading] = useState(false);
   const [eventsEnd, setEventsEnd] = useState(false);
@@ -33,7 +32,7 @@ export default function ShowEvent() {
           eventCollection,
           orderBy("createdAt", "desc"),
           limit(5),
-          where("time", "==", false)
+          where("time", "==", true)
         );
         const querySnapshot = await getDocs(q);
 

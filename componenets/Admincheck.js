@@ -5,7 +5,7 @@ export default function AdminCheck(props) {
   const { username } = useContext(UserContext);
 
   if (username === "loading") {
-    return <div>Loading ...</div>;
+    return <div></div>;
   }
   if (username == "badereddine") {
     return props.children;

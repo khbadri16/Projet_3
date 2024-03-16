@@ -33,8 +33,15 @@ export function EventC({ event }) {
   const createdAt = new Date(event.createdAt.seconds * 1000);
   const formattedDate = createdAt.toLocaleString();
   return (
-    <div className="card">
+    <div className="cardd">
       <div className="container">
+        <img
+          src={event.img}
+          width="300"
+          height="100"
+          alt="Description of the image"
+          className="post-img"
+        />
         <h3>
           <b>{event.title}</b>
         </h3>
@@ -65,9 +72,14 @@ export function EventC({ event }) {
               <>
                 <Terminer event={event} />
                 <Link href={`/Event/${event.slug}/`}>
-                  <button className="btn-blue">
-                    <b>Edit</b>
-                  </button>
+                  <div className="edit-iconn">
+                    <img
+                      src="/edit.svg"
+                      alt="Edit Logo"
+                      width="30"
+                      height="30"
+                    />
+                  </div>
                 </Link>
               </>
             )}

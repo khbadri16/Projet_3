@@ -20,29 +20,39 @@ function PostItem({ post, admin = false }) {
   }
   return (
     <div className="card">
-      <Link href={`/${post.username}`}>
-        <strong>By @{post.username}</strong>
-      </Link>
-
-      <Link href={`/${post.username}/${post.slug}`}>
-        <h2>{post.title}</h2>
-      </Link>
-
-      <footer>
-        <span>
-          {wordCount} words. {minutesToRead} min read
-        </span>
-        <span className="push-left">💗 {post.heartCount || 0} Hearts</span>
-        <span className=" "> 👁️ {post.ViewCount || 0} Views </span>
-      </footer>
-      {ifyes && (
-        <>
-          <Link href={`/admin/${post.slug}`}>
-            <h3>
-              <button className="btn-blue">Edit</button>
-            </h3>
+      <div className="card-content">
+        <img
+          src={post.img}
+          width="300"
+          height="100"
+          alt="Description of the image"
+          className="post-img"
+        />
+        <div className="post-details">
+          <Link href={`/${post.username}`}>
+            <strong>By @{post.username}</strong>
           </Link>
-        </>
+
+          <Link href={`/${post.username}/${post.slug}`}>
+            <h2>{post.title}</h2>
+          </Link>
+
+          <footer>
+            <span>
+              {wordCount} words. {minutesToRead} min read
+            </span>
+            <span className="push-left">💗 {post.heartCount || 0} Hearts</span>
+            <span className="">👁️ {post.ViewCount || 0} Views</span>
+          </footer>
+        </div>
+      </div>
+
+      {ifyes && (
+        <Link href={`/admin/${post.slug}`}>
+          <div className="edit-icon">
+            <img src="/edit.svg" alt="Edit Logo" width="30" height="30" />
+          </div>
+        </Link>
       )}
     </div>
   );

@@ -2,6 +2,7 @@
 
 import useUserdata from "@/lib/hooks";
 import {
+  Timestamp,
   collectionGroup,
   getDocs,
   limit,
@@ -14,7 +15,11 @@ import { db, postToJSON } from "../firebase/config";
 import { UserContext } from "@/lib/context";
 import PostFeed from "@/componenets/postUser";
 import Loader from "@/componenets/loader";
-import Navbar1 from "@/componenets/NavBar1.1";
+import Addbutton from "@/components_3/addButton";
+import AuthCheck from "@/componenets/Authcheck";
+import Filtercat from "@/components_3/filter";
+import Navbar2 from "@/components_3/Navbar1.2";
+import ArticleComponent from "@/components_4/addArticle";
 
 export default function Home() {
   const [posts, setPosts] = useState(null);
@@ -37,29 +42,43 @@ export default function Home() {
   }, []);
 
   const getMorePosts = async () => {
+    if (loading) return;
     setLoading(true);
-    const last = posts[posts.length - 1];
-
-    const cursor = last.createdAt;
-
-    const postCollection = collectionGroup(db, "posts");
-    const q = query(
-      postCollection,
-      orderBy("createdAt", "desc"),
-      startAfter(cursor),
-      limit(5)
-    );
 
     try {
+      const last = posts[posts.length - 1];
+      if (!last) {
+        console.error("No last post found");
+        setPostsEnd(true); // Set postsEnd to true if no last post is found
+        setLoading(false);
+        return;
+      }
+
+      const cursor = new Timestamp(
+        Math.floor(last.createdAt / 1000),
+        (last.createdAt % 1000) * 1000000
+      );
+      console.log("Cursor:", cursor);
+
+      const postCollection = collectionGroup(db, "posts");
+      const q = query(
+        postCollection,
+        orderBy("createdAt", "desc"),
+        startAfter(cursor),
+        limit(5)
+      );
+
       const querySnapshot = await getDocs(q);
       const newPosts = querySnapshot.docs.map((doc) => doc.data());
 
-      setPosts(posts.concat(newPosts));
-      setLoading(false);
+      console.log("New Posts:", newPosts);
 
-      if (newPosts.length < 5) {
-        setPostsEnd(true);
+      if (newPosts.length === 0) {
+        setPostsEnd(true); // Set postsEnd to true if no new posts are fetched
+      } else {
+        setPosts(posts.concat(newPosts));
       }
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching more posts:", error);
       setLoading(false);
@@ -69,9 +88,13 @@ export default function Home() {
   return (
     <>
       <UserContext.Provider value={userData}>
-        <Navbar1 />
+        <Navbar2 />
+        <Filtercat />
+        <AuthCheck>
+          <ArticleComponent />
+        </AuthCheck>
       </UserContext.Provider>
-      <div className="mt-16" />
+
       <PostFeed posts={posts} />
       {!loading && !postsEnd && (
         <button onClick={getMorePosts}>Load more</button>

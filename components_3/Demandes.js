@@ -84,7 +84,7 @@ function Demandes({ demande }) {
 
   return (
     <>
-      <div className="card">
+      <div className="cardd">
         <strong>{demande.Prénom}</strong>
         <h2>{demande.Nom}</h2>
         <h2>{demande.phone_1}</h2>
