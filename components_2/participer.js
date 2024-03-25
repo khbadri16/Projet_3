@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { collection, doc, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "@/app/firebase/config";
 import toast from "react-hot-toast";
 
@@ -12,7 +12,9 @@ export default function ParticiperEvent({ event }) {
     try {
       const participantsCollectionRef = collection(event, "participant");
 
-      await addDoc(participantsCollectionRef, {
+      const participantDocRef = doc(participantsCollectionRef, phoneNumber);
+
+      await setDoc(participantDocRef, {
         nom: nom,
         prenom: prenom,
         phoneNumber: phoneNumber,
@@ -22,7 +24,7 @@ export default function ParticiperEvent({ event }) {
       setPrenom("");
       setPhoneNumber("");
 
-      toast.success("merci pour votre participation");
+      toast.success("Merci pour votre participation");
 
       console.log("Participant added successfully!");
     } catch (error) {

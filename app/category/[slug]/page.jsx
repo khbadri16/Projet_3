@@ -16,6 +16,7 @@ import Loader from "@/componenets/loader";
 import { db, postToJSON } from "@/app/firebase/config";
 import Filtercat from "@/components_3/filter";
 import Navbar2 from "@/components_3/Navbar1.2";
+import Loading from "@/components_4/Loadin";
 
 export default function Postbycat({ params }) {
   const { slug } = params;
@@ -73,6 +74,10 @@ export default function Postbycat({ params }) {
       setLoading(false);
     }
   };
+
+  if (!posts) {
+    return <Loading />;
+  }
 
   return (
     <>

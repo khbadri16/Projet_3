@@ -9,9 +9,9 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Loading from "./Loadin";
 
 export default function ShowdemanMed() {
   const [demande, setDemande] = useState(null);
@@ -41,6 +41,9 @@ export default function ShowdemanMed() {
 
     fetchDemandes();
   }, []);
+  if (!demande) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -50,12 +53,30 @@ export default function ShowdemanMed() {
 }
 
 function Demandespr({ demanme }) {
-  return demanme
-    ? demanme.map((demand) => <Demandes demand={demand} key={demand.name} />)
-    : null;
+  return (
+    <>
+      <table className="demande-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Téléphone</th>
+            <th>Produit</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {demanme.map((demand, index) => (
+            <Demandes demand={demand} key={index} index={index} />
+          ))}
+        </tbody>
+      </table>
+      <div style={{ height: "100px" }}></div>
+    </>
+  );
 }
 
-function Demandes({ demand }) {
+function Demandes({ demand, index }) {
   const Delete = async () => {
     const doIt = confirm("are you sure!");
     if (doIt) {
@@ -67,14 +88,17 @@ function Demandes({ demand }) {
 
   return (
     <>
-      <div className="cardd">
-        <h2>{demand.name}</h2>
-        <h2>{demand.phone}</h2>
-        <strong>{demand.Produit}</strong>
-        <button onClick={Delete} className="btn-red">
-          Supprimer
-        </button>
-      </div>
+      <tr>
+        <td data-cell="#">{index + 1}</td>
+        <td data-cell="Nom">{demand.name}</td>
+        <td data-cell="Telephone">{demand.phone}</td>
+        <td data-cell="Produit">{demand.Produit}</td>
+        <td data-cell="Action">
+          <button onClick={Delete} className="btn-red">
+            Supprimer
+          </button>
+        </td>
+      </tr>
     </>
   );
 }

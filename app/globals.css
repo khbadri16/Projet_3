@@ -9,6 +9,13 @@
   --color-red: #df3b3b;
   --color-green: #3bdf72;
   --color-gray: #b5bdc4;
+  font-size: 16px;
+  font-family: "Open Sans";
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --transition-speed: 600ms;
 }
 html,
 body {
@@ -19,7 +26,17 @@ body {
   color: var(--color-text);
   margin-top: 50px;
 }
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
 
+body::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
 main {
   padding: 1rem 10vw;
 }
@@ -351,7 +368,7 @@ input[type="file"] {
   align-items: center;
 }
 
-.image-container {
+.image-cont {
   width: 50%;
 }
 
@@ -761,22 +778,40 @@ p {
 
 .change-co {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Align items vertically */
+  margin-bottom: 20px; /* Add some margin for spacing */
 }
 
 .nbtotall {
-  margin-bottom: 5px;
+  font-size: 30px;
+  margin-right: 10px;
 }
 
 .smallinput {
-  width: 20%;
+  width: 100px; /* Adjust width as needed */
   padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  margin-bottom: 10px;
+  margin-bottom: 0; /* Remove bottom margin to align input and button */
+}
+
+.btn-blu {
+  padding: 10px 20px; /* Add padding to the button */
+  font-size: 14px; /* Match font size with input */
+  background-color: #007bff; /* Blue color for button */
+  color: #fff; /* White text color */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Add border radius */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+  margin-left: 10px;
+}
+
+.btn-blu:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 /* NavbarStyles.css */
@@ -952,12 +987,6 @@ p {
   }
 }
 /********events**********/
-/* style.css */
-
-/* General Styles */
-/* style.css */
-
-/* General Styles */
 .custom-card {
   width: 250px;
   border: 1px solid #ddd;
@@ -1301,9 +1330,6 @@ p {
 }
 
 /**********The Filter**********/
-
-/**********The Filter**********/
-/**********The Filter**********/
 .filter-container {
   display: flex;
   align-items: center;
@@ -1585,4 +1611,205 @@ span.product-count:hover {
   font-size: 16px;
   font-weight: bold;
   color: #333;
+}
+/***demande liste****/
+.demande-table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  margin-top: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background: white;
+}
+
+.demande-table th,
+.demande-table td {
+  /*border: 1px solid #ddd;*/
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.demande-table th {
+  background-color: #009879;
+  color: white;
+  font-weight: bold;
+}
+
+.demande-table th:first-child,
+.demande-table td:first-child {
+  border-left: none;
+}
+
+.demande-table th:last-child,
+.demande-table td:last-child {
+  border-right: none;
+}
+
+.demande-table .btn-green,
+.demande-table .btn-red {
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.demande-table .btn-green:hover,
+.demande-table .btn-red:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.demande-table .btn-green {
+  border-color: green;
+  color: green;
+}
+
+.demande-table .btn-red {
+  border-color: red;
+  color: red;
+}
+
+.demande-table tbody tr:nth-child(even) {
+  background-color: #f3f3f3;
+  color: #009879;
+  font-weight: bold;
+}
+
+.demande-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.demande-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+@media (max-width: 650px) {
+  .demande-table td {
+    display: block;
+    padding: 0.5rem 1rem;
+  }
+
+  .demande-table th {
+    display: none;
+  }
+
+  .demande-table td:before {
+    content: attr(data-cell) ": ";
+    font-weight: 700;
+  }
+
+  .demande-table td:last-child {
+    padding-bottom: 2rem;
+  }
+}
+
+.event-head {
+  background-color: #009879;
+  color: white;
+  font-weight: bold;
+  padding: 20px; /* Increase the padding to make the background bigger */
+  margin: 10px auto; /* Center the element horizontally */
+  max-width: 50%; /* Set a maximum width */
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  text-align: center; /* Center align the content */
+  border-radius: 10px 10px 10px 10px;
+}
+
+/***text admin title****/
+.hh2 {
+  font-size: 60px;
+  font-weight: bold;
+  color: white;
+  -webkit-text-stroke: 1px #009879;
+  position: relative;
+}
+
+.hh2::before {
+  content: attr(data-text);
+  position: absolute;
+  align-items: center;
+  width: 0;
+  height: 101%;
+  color: #009879;
+  border-right: 2px solid #009879;
+  overflow: hidden;
+  animation: animate 10s linear infinite;
+  white-space: nowrap;
+}
+@keyframes animate {
+  0%,
+  10%,
+  100% {
+    width: 0;
+  }
+  70%,
+  90% {
+    width: 101%;
+  }
+}
+.kali {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+@media (max-width: 768px) {
+  .hh2 {
+    font-size: 40px; /* Adjust font size for smaller screens */
+    color: #009879;
+  }
+
+  .hh2::before {
+    animation: none;
+    border-right: none; /* Stop animation on small screens */
+  }
+}
+
+/* GIF Admin */
+.gif-container {
+  width: 30%; /* Default width */
+  margin: 0 auto; /* Center horizontally */
+}
+
+@media only screen and (max-width: 768px) {
+  .gif-container {
+    width: 80%; /* Adjusted width for smartphones */
+  }
+}
+
+/****loader***/
+.loader-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader-logo {
+  width: 200px; /* Adjust the width and height as needed */
+  height: 200px;
+  animation: spin 4s linear infinite; /* Slow down the rotation to 4 seconds */
+}
+
+.loading-bar {
+  width: 200px; /* Adjust the width as needed */
+  height: 10px; /* Adjust the height as needed */
+  background-color: #ddd; /* Adjust the background color */
+  margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -20,6 +20,7 @@ import AuthCheck from "@/componenets/Authcheck";
 import Filtercat from "@/components_3/filter";
 import Navbar2 from "@/components_3/Navbar1.2";
 import ArticleComponent from "@/components_4/addArticle";
+import Loading from "@/components_4/Loadin";
 
 export default function Home() {
   const [posts, setPosts] = useState(null);
@@ -84,6 +85,10 @@ export default function Home() {
       setLoading(false);
     }
   };
+
+  if (!posts) {
+    return <Loading />;
+  }
 
   return (
     <>

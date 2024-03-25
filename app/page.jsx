@@ -14,16 +14,8 @@ export default function Page() {
       <UserContext.Provider value={userData}>
         <Navbar2 />
       </UserContext.Provider>
-      <div
-        style={{
-          width: "100%",
-          backgroundColor: "blue",
-          color: "white",
-          padding: "20px",
-        }}
-      >
-        <p>photo de couverture</p>
-      </div>
+      <img src="coverture.JPG" alt="" style={{ filter: "grayscale(60%)" }} />
+
       <div
         style={{
           width: "100%",

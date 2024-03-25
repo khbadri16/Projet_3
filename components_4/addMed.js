@@ -46,16 +46,17 @@ export default function Addmedicament() {
     setName("");
     setText("");
     setNumber("");
+    setMedImage("");
 
     toast.success("Le médicament a été ajouté avec succès !");
   };
   return (
-    <div class="partner-form-container">
-      <div class="partner-form">
-        <h2 class="form-title">Ajouter un Medicament</h2>
-        <form class="form" onSubmit={handleSubmit}>
-          <div class="form-group">
-            <label for="name" class="form-label">
+    <div className="partner-form-container">
+      <div className="partner-form">
+        <h2 className="form-title">Ajouter un Medicament</h2>
+        <form className="form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">
               Name
             </label>
             <input
@@ -64,11 +65,11 @@ export default function Addmedicament() {
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              class="form-input"
+              className="form-input"
             />
           </div>
-          <div class="form-group">
-            <label for="text" class="form-label">
+          <div className="form-group">
+            <label htmlFor="text" className="form-label">
               Text
             </label>
             <textarea
@@ -76,12 +77,12 @@ export default function Addmedicament() {
               name="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
-              class="form-textarea"
+              className="form-textarea"
               rows="3"
             ></textarea>
           </div>
-          <div class="form-group">
-            <label for="quantity" class="form-label">
+          <div className="form-group">
+            <label htmlFor="quantity" className="form-label">
               Quantité
             </label>
             <input
@@ -93,11 +94,11 @@ export default function Addmedicament() {
                 const value = Math.max(0, parseInt(e.target.value));
                 setNumber(value);
               }}
-              class="form-input"
+              className="form-input"
             />
           </div>
-          <div class="form-group">
-            <label for="medimage" class="form-file-label">
+          <div className="form-group">
+            <label htmlFor="medimage" className="form-file-label">
               {medimage ? `Selected: ${medimage.name}` : "Add Med Picture"}
             </label>
             <input
@@ -105,10 +106,10 @@ export default function Addmedicament() {
               id="medimage"
               accept="image/*"
               onChange={handlePictureUploadd}
-              class="form-file-input"
+              className="form-file-input"
             />
           </div>
-          <button type="submit" class="form-submit-button">
+          <button type="submit" className="form-submit-button">
             Submit
           </button>
         </form>

@@ -1,4 +1,8 @@
 "use client";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
+import { PiUserCirclePlusDuotone } from "react-icons/pi";
 import { useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import {
@@ -13,6 +17,7 @@ import toast from "react-hot-toast";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { auth, db, storage } from "@/app/firebase/config";
 import { useRouter } from "next/navigation";
+import { IoMdPhotos } from "react-icons/io";
 
 const SignUpp = () => {
   const [email, setEmail] = useState("");
@@ -86,52 +91,66 @@ const SignUpp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      <div className="bg-gray-800 p-10 rounded-lg shadow-xl w-96">
-        <h1 className="text-white text-2xl mb-5">Sign Up</h1>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
-        />
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
-        />
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-white p-10 rounded-lg shadow-xl w-96">
+        <h1 className="text-green-600 text-2xl mb-5">
+          <PiUserCirclePlusDuotone className="inline-block mr-2" /> Sign Up
+        </h1>
+        <div className="relative mb-4">
+          <MdEmail className="absolute left-3 top-3 text-green-600" />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 pl-10 bg-white rounded outline-none text-gray-800 placeholder-gray-500 border border-green-600"
+          />
+        </div>
+        <div className="relative mb-4">
+          <RiLockPasswordFill className="absolute left-3 top-3 text-green-600" />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 pl-10 bg-white rounded outline-none text-gray-800 placeholder-gray-500 border border-green-600"
+          />
+        </div>
+        <div className="relative mb-4">
+          <FaUser className="absolute left-3 top-3 text-green-600" />
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full p-3 pl-10 bg-white rounded outline-none text-gray-800 placeholder-gray-500 border border-green-600"
+          />
+        </div>
 
-        <label
-          htmlFor="profilePicture"
-          className="w-full p-3 mb-4 bg-gray-700 rounded cursor-pointer text-white"
-        >
-          {profilePicture
-            ? `Selected: ${profilePicture.name}`
-            : "Add Profile Picture"}
-        </label>
-        <input
-          type="file"
-          id="profilePicture"
-          accept="image/*"
-          onChange={handlePictureUpload}
-          className="hidden"
-        />
+        <div className="relative mb-4">
+          <IoMdPhotos className="absolute left-3 top-1 text-green-600" />
+          <label
+            htmlFor="profilePicture"
+            className="w-full p-3 bg-white rounded cursor-pointer text-green-600 pl-10 border border-green-600"
+          >
+            {profilePicture
+              ? `Selected: ${profilePicture.name}`
+              : "Add Profile Picture"}
+          </label>
+          <input
+            type="file"
+            id="profilePicture"
+            accept="image/*"
+            onChange={handlePictureUpload}
+            className="hidden"
+          />
+        </div>
         <div className="mb-4"></div>
         <button
           onClick={handleSignUp}
-          className="w-full p-3 bg-indigo-600 rounded text-white hover:bg-indigo-500"
+          className="w-full p-3 bg-green-600 rounded text-white hover:bg-green-900"
         >
-          Sign Up
+          Add Member
         </button>
       </div>
     </div>

@@ -3,6 +3,8 @@ import { getUserWithUsername, postToJSON } from "../firebase/config";
 import PostFeed from "@/componenets/postUser";
 import { orderBy, limit, getDocs, query } from "firebase/firestore";
 import { collection } from "firebase/firestore";
+import { UserContext } from "@/lib/context";
+import useUserdata from "@/lib/hooks";
 
 async function fetchData(username) {
   const userDoc = await getUserWithUsername(username);

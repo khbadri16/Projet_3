@@ -1,6 +1,6 @@
 "use client";
-
 import { db } from "@/app/firebase/config";
+import Loading from "@/components_4/Loadin";
 import {
   collection,
   deleteDoc,
@@ -9,9 +9,9 @@ import {
   limit,
   query,
 } from "firebase/firestore";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Titre from "./Title";
 
 export default function ShowParticipant() {
   const [participants, setParticipants] = useState(null);
@@ -39,20 +39,43 @@ export default function ShowParticipant() {
   }, []);
 
   if (!participants) {
-    return <h5>Loading...</h5>;
+    return <Loading />;
   }
-  return <Participantpr participants={participants} />;
+  return (
+    <>
+      <Titre titre={"Liste des Participant au Don du Sang"} />
+      <Participantpr participants={participants} />
+    </>
+  );
 }
 
 function Participantpr({ participants }) {
-  return participants
-    ? participants.map((participant) => (
-        <Participant participant={participant} key={participant.id} />
-      ))
-    : null;
+  return (
+    <>
+      <table className="demande-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Téléphone 01</th>
+            <th>Téléphone 02</th>
+            <th>Type</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {participants.map((participant, index) => (
+            <Participant participant={participant} key={index} index={index} />
+          ))}
+        </tbody>
+      </table>
+      <div style={{ height: "100px" }}></div>
+    </>
+  );
 }
 
-function Participant({ participant }) {
+function Participant({ participant, index }) {
   const Delete = async () => {
     const doIt = confirm("are you sure!");
     if (doIt) {
@@ -64,16 +87,19 @@ function Participant({ participant }) {
 
   return (
     <>
-      <div className="cardd">
-        <strong>{participant.username}</strong>
-        <h2>{participant.phone_1}</h2>
-        <h2>{participant.phone_2}</h2>
-        <h2>{participant.Type}</h2>
-        <h2>{participant.Email}</h2>
-        <button onClick={Delete} className="btn-red">
-          Supprimer
-        </button>
-      </div>
+      <tr>
+        <td data-cell="#">{index + 1}</td>
+        <td data-cell="Nom">{participant.username}</td>
+        <td data-cell="Telephone 01">{participant.phone_1}</td>
+        <td data-cell="Telephone 02">{participant.phone_2}</td>
+        <td data-cell="Type ">{participant.Type}</td>
+        <td data-cell="Email">{participant.Email}</td>
+        <td data-cell="Action ">
+          <button onClick={Delete} className="btn-red">
+            Supprimer
+          </button>
+        </td>
+      </tr>
     </>
   );
 }

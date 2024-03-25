@@ -18,6 +18,7 @@ import Slider from "react-slick";
 import AdminCheck from "@/componenets/Admincheck";
 import useUserdata from "@/lib/hooks";
 import { UserContext } from "@/lib/context";
+import Loading from "./Loadin";
 
 export default function ShowMed() {
   const [medicaments, setMedicaments] = useState(null);
@@ -45,7 +46,7 @@ export default function ShowMed() {
   }, []);
 
   if (!medicaments) {
-    return <h5>Loading...</h5>;
+    return <Loading />;
   }
   return <MedSlider medicaments={medicaments} />;
 }

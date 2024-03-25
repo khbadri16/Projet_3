@@ -3,6 +3,7 @@
 import { db } from "@/app/firebase/config";
 import Hearte from "@/components_2/Heartev";
 import ParticiperEvent from "@/components_2/participer";
+import Loading from "@/components_4/Loadin";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -43,7 +44,7 @@ function Eventtext({ slug }) {
   }, [slug]);
 
   if (!event) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   return (

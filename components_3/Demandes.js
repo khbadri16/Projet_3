@@ -1,6 +1,7 @@
 "use client";
 
 import { db } from "@/app/firebase/config";
+import Loading from "@/components_4/Loadin";
 import {
   collection,
   deleteDoc,
@@ -15,6 +16,7 @@ import {
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { FaBed } from "react-icons/fa";
 
 export default function Gestion_Demande() {
   const [demandes, setDemandes] = useState(null);
@@ -44,22 +46,42 @@ export default function Gestion_Demande() {
 
     fetchDemandes();
   }, []);
-
+  if (!demandes) {
+    return <Loading />;
+  }
   return (
     <>
       <ChangeNbplace />
-      <Demandespr demanmes={demandes} />
+      <Demandespr demandes={demandes} />
     </>
   );
 }
 
-function Demandespr({ demanmes }) {
-  return demanmes
-    ? demanmes.map((demande) => <Demandes demande={demande} key={demande.id} />)
-    : null;
+function Demandespr({ demandes }) {
+  return (
+    <>
+      <table className="demande-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Téléphone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {demandes.map((demande, index) => (
+            <Demandes demande={demande} key={index} index={index} />
+          ))}
+        </tbody>
+      </table>
+      <div style={{ height: "100px" }}></div>
+    </>
+  );
 }
 
-function Demandes({ demande }) {
+function Demandes({ demande, index }) {
   const router = useRouter();
   const [etat, setEtat] = useState(demande.Etat);
 
@@ -83,19 +105,20 @@ function Demandes({ demande }) {
   };
 
   return (
-    <>
-      <div className="cardd">
-        <strong>{demande.Prénom}</strong>
-        <h2>{demande.Nom}</h2>
-        <h2>{demande.phone_1}</h2>
+    <tr>
+      <td data-cell="#">{index + 1}</td>
+      <td data-cell="Prenom">{demande.Prénom}</td>
+      <td data-cell="Nom ">{demande.Nom}</td>
+      <td data-cell="Telephone">{demande.phone_1}</td>
+      <td data-cell="Action">
         <button onClick={ChangeEtat} className="btn-green">
           {etat ? "Refuser" : "Accepter"}
         </button>
         <button onClick={Delete} className="btn-red">
           Supprimer
         </button>
-      </div>
-    </>
+      </td>
+    </tr>
   );
 }
 
@@ -132,15 +155,17 @@ function ChangeNbplace() {
 
   return (
     <div className="change-co">
-      <label className="nbtotall"> Nombre de place total :</label>
+      <span className="nbtotall">
+        <FaBed />
+      </span>
       <input
         type="number"
         value={newCount < 0 ? 0 : newCount}
         onChange={(e) => setNewCount(Math.max(0, Number(e.target.value)))}
         className="smallinput"
       />
-      <button onClick={handleCountUpdate} className="btn-blue">
-        Update Count
+      <button onClick={handleCountUpdate} className="btn-blu">
+        Update Places
       </button>
     </div>
   );
