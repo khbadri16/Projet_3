@@ -1885,6 +1885,7 @@ span.product-count:hover {
 /****filter members****/
 .button-mm {
   display: flex;
+  flex-wrap: wrap; /* Allows buttons to wrap to the next line */
   justify-content: center;
 }
 
@@ -1893,10 +1894,29 @@ span.product-count:hover {
   color: white;
   padding: 10px 20px;
   border: none;
-  margin-right: 10px;
+  margin: 5px; /* Adjust margin for smaller screens */
   cursor: pointer;
+  width: calc(
+    50% - 10px
+  ); /* Make each button take up 50% of the container width minus margin */
+  max-width: 130px; /* Limit button width for smaller screens */
 }
 
 .commission-button:hover {
   background-color: #084639;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 600px) {
+  .button-mm {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center buttons horizontally */
+  }
+
+  .commission-button {
+    width: calc(
+      100% - 10px
+    ); /* Make each button take up full width minus margin */
+    max-width: none; /* Remove max-width to allow buttons to expand */
+  }
 }

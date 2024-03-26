@@ -169,8 +169,8 @@ function PartA({ participant, index, event }) {
       <tr>
         <td data-cell="#">{index + 1}</td>
         <td data-cell="Nom">{participant.prenom}</td>
-        <td data-cell="Telephone">{participant.nom}</td>
-        <td data-cell="Produit">{participant.phoneNumber}</td>
+        <td data-cell="Prénom">{participant.nom}</td>
+        <td data-cell="Téléphone">{participant.phoneNumber}</td>
         <td data-cell="Action">
           <button className="btn-red" onClick={Delete}>
             Supprimer

@@ -129,7 +129,7 @@ function Membre({ membre, index }) {
     <>
       <tr>
         <td data-cell="#">{index + 1}</td>
-        <td data-cell="Telephone">
+        <td data-cell="picture">
           <img
             src={membre.photoURL}
             alt="photo profile"
