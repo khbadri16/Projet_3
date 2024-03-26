@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Toaster position="bottom-center" />
         {children}
+        <Analytics />
       </body>
     </html>
   );
