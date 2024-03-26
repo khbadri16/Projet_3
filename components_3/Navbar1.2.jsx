@@ -1,6 +1,7 @@
 "use client";
 import { auth } from "@/app/firebase/config";
 import AdminCheck from "@/componenets/Admincheck";
+import Deletacount from "@/components_4/deletacount";
 import { UserContext } from "@/lib/context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -14,7 +15,6 @@ export default function Navbar2() {
   const [isOpen3, setIsOpen3] = useState(false);
   const { user, username } = useContext(UserContext);
   const router = useRouter();
-
   const signOut = () => {
     auth.signOut();
     router.push("/");
@@ -65,17 +65,14 @@ export default function Navbar2() {
         </button>
       </div>
       {isOpen3 && (
-        <div className="bg-white absolute top-full left-0 mt-2 w-full">
+        <div className="bg-white absolute top-full left-0 mt-2 w-max">
           <a
             href={`/${username}/`}
             className="block px-4 py-2 hover:text-blue-500"
           >
             Profile
           </a>
-          <button
-            onClick={signOut}
-            className=" hover:text-blue-500 text-lg bg-transparent "
-          >
+          <button onClick={signOut} className="btn-badri">
             Sign out
           </button>
           <AdminCheck>
@@ -86,6 +83,7 @@ export default function Navbar2() {
               Admin
             </a>
           </AdminCheck>
+          <Deletacount />
         </div>
       )}
     </div>

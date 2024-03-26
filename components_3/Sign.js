@@ -3,7 +3,7 @@ import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 import { PiUserCirclePlusDuotone } from "react-icons/pi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import {
   collection,
@@ -27,6 +27,23 @@ const SignUpp = () => {
     useCreateUserWithEmailAndPassword(auth);
   const [profilePicture, setProfilePicture] = useState(null);
   const router = useRouter();
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const CategoryCollection = await getDocs(collection(db, "Category"));
+
+      const CategoryData = CategoryCollection.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setCategories(CategoryData);
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleSignUp = async () => {
     try {
@@ -50,6 +67,7 @@ const SignUpp = () => {
         uid: user.uid,
         username: username,
         photoURL: profilePicture ? await uploadProfilePicture() : null,
+        commission: selectedCategory,
       });
 
       console.log({ res });
@@ -126,12 +144,26 @@ const SignUpp = () => {
             className="w-full p-3 pl-10 bg-white rounded outline-none text-gray-800 placeholder-gray-500 border border-green-600"
           />
         </div>
+        <select
+          id="categorySelect"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="w-full p-3 pl-10 mb-10 bg-white rounded outline-none text-gray-800 placeholder-gray-500 border border-green-600"
+          required
+        >
+          <option value="">Sélect à commision</option>
+          {categories.map((Category) => (
+            <option key={Category.id} value={Category.name}>
+              {Category.name}
+            </option>
+          ))}
+        </select>
 
         <div className="relative mb-4">
           <IoMdPhotos className="absolute left-3 top-1 text-green-600" />
           <label
             htmlFor="profilePicture"
-            className="w-full p-3 bg-white rounded cursor-pointer text-green-600 pl-10 border border-green-600"
+            className="w-full p-3  bg-white rounded cursor-pointer text-green-600 pl-10 border border-green-600"
           >
             {profilePicture
               ? `Selected: ${profilePicture.name}`

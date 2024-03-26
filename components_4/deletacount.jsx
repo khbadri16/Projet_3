@@ -4,14 +4,14 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
   deleteUser,
+  getAuth,
 } from "firebase/auth";
-import { auth } from "../firebase/config";
 import { CgDanger } from "react-icons/cg";
 
-export default function Page() {
+export default function Deletacount() {
   const [password, setPassword] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-
+  const auth = getAuth();
   const handleDeleteAccount = async () => {
     if (!auth.currentUser) {
       alert("Aucun utilisateur connecté.");
@@ -35,7 +35,7 @@ export default function Page() {
   return (
     <>
       <button onClick={() => setModalVisible(true)} className="delete-button">
-        Supprimer mon compte
+        <span style={{ whiteSpace: "nowrap" }}>Supprimer mon compte</span>
       </button>
       {modalVisible && (
         <div className="modal">
