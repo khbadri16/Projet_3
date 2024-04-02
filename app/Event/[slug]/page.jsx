@@ -39,22 +39,36 @@ function EventManager({ slug }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const eventCollection = collection(db, "Event");
-      const q = query(eventCollection, where("slug", "==", slug));
-
       try {
-        const querySnapshot = await getDocs(q);
+        const eventCollection = collection(db, "Event");
+        const eventACollection = collection(db, "Event A");
 
-        if (!querySnapshot.empty) {
-          const eventDoc = querySnapshot.docs[0];
-          const eventData = eventDoc.data();
-          setEvent(eventData);
+        const q1 = query(eventCollection, where("slug", "==", slug));
+        const q2 = query(eventACollection, where("slug", "==", slug));
 
-          const documentReference = eventDoc.ref;
-          setEventRef(documentReference);
+        const [querySnapshot1, querySnapshot2] = await Promise.all([
+          getDocs(q1),
+          getDocs(q2),
+        ]);
+
+        let eventData = {};
+        let eventRef;
+
+        if (!querySnapshot1.empty) {
+          const eventDoc = querySnapshot1.docs[0];
+          eventData = eventDoc.data();
+          eventRef = eventDoc.ref;
+        } else if (!querySnapshot2.empty) {
+          const eventDoc = querySnapshot2.docs[0];
+          eventData = eventDoc.data();
+          eventRef = eventDoc.ref;
         } else {
           console.log("No event found with the specified slug.");
+          return;
         }
+
+        setEvent(eventData);
+        setEventRef(eventRef);
       } catch (error) {
         console.error("Error fetching event data:", error);
       }

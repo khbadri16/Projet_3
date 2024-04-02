@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/**************med search**********/
+.parent-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #009879;
+  border-radius: 5px;
+}
+
+.search-icon {
+  font-size: 30px;
+  margin-left: -35px;
+  margin-top: -12px;
+  color: #009879;
+  cursor: pointer;
+}
+
+/***********/
+
 :root {
   --color-bg: #eef0f1;
   --color-text: #08090a;
@@ -708,13 +739,50 @@ p {
 
 /*******participer input*********/
 
-.participation-form {
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Add margin-right to .participer-button to separate it from other elements */
+.participer-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+  margin-right: 10px; /* Added margin-right */
 }
 
+/* Center the button container horizontally */
+.button-container {
+  display: flex;
+  justify-content: center; /* Changed from space-between */
+}
+
+/* Adjust the positioning of the participation form */
+.participation-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Add a max-width to the form to prevent it from spanning the entire screen */
+.participation-form {
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Added max-width */
+  width: 100%; /* Ensure the form takes full width within its container */
+}
+
+/* Style form elements */
 .participation-form h2 {
   font-size: 1.5em;
   margin-bottom: 20px;
@@ -740,6 +808,7 @@ p {
   margin-top: 5px;
 }
 
+/* Adjust button styles */
 .participation-form button {
   background-color: #4caf50;
   color: white;
@@ -753,6 +822,16 @@ p {
 
 .participation-form button:hover {
   background-color: #45a049;
+}
+
+/* Style transparent background button */
+.transparent-background-button {
+  background-color: transparent;
+  color: black; /* Adjust the color to match your design */
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
 }
 
 /********maison*******/
@@ -1074,33 +1153,32 @@ p {
 }
 
 /************add button ******/
-/* style.css */
 
 .add-event-card {
-  width: 200px; /* Adjust the width as needed */
-  height: 120px; /* Adjust the height as needed */
-  background-color: #fff; /* White background color */
-  border: 1px solid black; /* Border color */
+  width: 200px;
+  height: 120px;
+  background-color: #fff;
+  border: 1px solid black;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Add transition for a smooth effect */
+  transition: background-color 0.3s ease;
 }
 
 .add-event-content {
   text-align: center;
-  color: #000; /* Black text color */
+  color: #000;
 }
 
 .add-event-img {
-  display: block; /* Centering the image with margin */
+  display: block;
   margin: 0 auto;
 }
 
 .add-event-card:hover {
-  background-color: #f2f2f2; /* Light gray on hover */
+  background-color: #f2f2f2;
 }
 /*******Partner********/
 
@@ -1490,6 +1568,7 @@ span.product-count:hover {
   display: flex;
   gap: 10px; /* Adjust the space between logos */
 }
+
 /*****evenment de senseblisation***/
 .sensibilisation-card {
   padding: 20px;
@@ -1526,28 +1605,24 @@ span.product-count:hover {
   background-color: #add8e6;
   color: black;
 }
+
 /******event add******/
 .event-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: transparent;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
   cursor: pointer;
-}
-
-.event-container:hover {
-  transform: scale(1.05);
+  box-shadow: none; /* Remove the box shadow */
+  border: none; /* Remove any border */
 }
 
 .image-container {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background-color: #3490dc;
+  background-color: #009879;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1556,7 +1631,7 @@ span.product-count:hover {
 }
 
 .image-container:hover {
-  background-color: #2779bd;
+  background-color: #084639;
 }
 
 .icon {
@@ -1570,16 +1645,15 @@ span.product-count:hover {
   color: #333;
 }
 /****add article ****/
-.article-container {
+.event-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  background-color: transparent;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
   cursor: pointer;
+  box-shadow: none; /* Remove the box shadow */
+  border: none; /* Remove any border */
 }
 
 .article-container:hover {
@@ -1648,7 +1722,8 @@ span.product-count:hover {
 }
 
 .demande-table .btn-green,
-.demande-table .btn-red {
+.demande-table .btn-red,
+.demande-table .btn-blo {
   background-color: transparent;
   border: 2px solid;
   border-radius: 5px;
@@ -1661,13 +1736,19 @@ span.product-count:hover {
 }
 
 .demande-table .btn-green:hover,
-.demande-table .btn-red:hover {
+.demande-table .btn-red:hover,
+.demande-table .btn-blo:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
 .demande-table .btn-green {
   border-color: green;
   color: green;
+}
+
+.demande-table .btn-blo {
+  border-color: blue;
+  color: blue;
 }
 
 .demande-table .btn-red {
@@ -1919,4 +2000,164 @@ span.product-count:hover {
     ); /* Make each button take up full width minus margin */
     max-width: none; /* Remove max-width to allow buttons to expand */
   }
+}
+
+/******Sensibilisation Event*****/
+.sensibilisation-container {
+  width: 100%;
+}
+
+.sensibilisation-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 1.5rem;
+  overflow: hidden;
+  height: 400px; /* Set a fixed height for all cards */
+}
+
+.sensibilisation-image {
+  width: 100%;
+  height: 50%; /* Adjust the height of the image */
+  object-fit: cover;
+}
+
+.sensibilisation-content {
+  padding: 1.5rem;
+  height: 50%; /* Adjust the height of the content */
+}
+
+.sensibilisation-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.sensibilisation-description {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.4;
+  overflow: hidden; /* Hide overflowing text */
+}
+
+.sensibilisation-slider {
+  max-width: 900px;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.sensibilisation-slider:hover {
+  transform: scale(1.05);
+}
+
+.slick-prev,
+.slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  cursor: pointer;
+  color: #333;
+}
+
+.slick-slider .slick-prev {
+  left: 1rem;
+}
+
+.slick-slider .slick-next {
+  right: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .slick-slider .slick-prev,
+  .slick-slider .slick-next {
+    display: none;
+  }
+
+  .sensibilisation-card {
+    margin: 1rem 0;
+    border-radius: 0;
+    box-shadow: none;
+    height: auto; /* Allow cards to adjust height based on content */
+  }
+
+  .sensibilisation-image {
+    height: auto; /* Allow image to adjust height based on content */
+  }
+
+  .sensibilisation-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .sensibilisation-description {
+    font-size: 0.875rem;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .sensibilisation-content {
+    padding: 1rem;
+  }
+}
+
+.containe {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.content {
+  max-width: calc(100% - 300px);
+}
+
+.imagee {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+  transition: filter 0.3s ease;
+  filter: grayscale(1000%);
+  border-radius: 10px; /* Adding border-radius */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adding shadow */
+}
+
+.imagee:hover {
+  filter: grayscale(0%);
+}
+
+@media (max-width: 768px) {
+  .containe {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .imagee {
+    max-width: 100%;
+    margin-top: 0;
+  }
+}
+
+/****activite social****/
+.slide-container {
+  display: flex;
+  align-items: center;
+}
+
+.slide-image {
+  width: 350px; /* Set the width of the image */
+  margin-left: auto; /* Move the image to the right */
+}
+
+.slide-text {
+  font-size: 18px; /* Example text styling */
+  font-weight: bold;
+  color: #333;
+  margin-right: 50px; /* Adjust margin as needed */
+}
+
+.imageee {
+  max-width: 40%;
+  border-radius: 5%;
 }

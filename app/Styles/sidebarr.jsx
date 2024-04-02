@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
 import { BiDonateBlood } from "react-icons/bi";
+import { MdEvent } from "react-icons/md";
 export default function Sidebar() {
   return (
     <nav className={styles.navbar}>
@@ -113,6 +114,19 @@ export default function Sidebar() {
               </span>
             </div>
             <span className={styles["link-text"]}>Participants</span>
+          </a>
+        </li>
+        <li className={styles["nav-item"]}>
+          <a href="/Espace_admin/events" className={styles["nav-link"]}>
+            <div>
+              <span className={styles["fa-group"]}>
+                <MdEvent
+                  className={`${styles["fa-secondary"]} ${styles["fa-primary"]}`}
+                  style={{ fontSize: "4rem" }}
+                />
+              </span>
+            </div>
+            <span className={styles["link-text"]}>Évents</span>
           </a>
         </li>
         <li className={styles["nav-item"]}>

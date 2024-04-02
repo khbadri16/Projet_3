@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { db } from "@/app/firebase/config";
 import {
   collection,
-  deleteDoc,
   doc,
   getDocs,
   limit,
@@ -15,9 +14,6 @@ import {
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Slider from "react-slick";
-import AdminCheck from "@/componenets/Admincheck";
-import useUserdata from "@/lib/hooks";
-import { UserContext } from "@/lib/context";
 import Loading from "./Loadin";
 
 export default function ShowMed() {
@@ -52,10 +48,9 @@ export default function ShowMed() {
 }
 
 function MedSlider({ medicaments }) {
-  const userData = useUserdata();
   var settings = {
     dots: true,
-    infinite: true,
+    infinite: medicaments.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -70,9 +65,7 @@ function MedSlider({ medicaments }) {
       <Slider {...settings}>
         {medicaments.map((medicament) => (
           <div key={medicament.name} className="med-container">
-            <UserContext.Provider value={userData}>
-              <Med medicament={medicament} />
-            </UserContext.Provider>
+            <Med medicament={medicament} />
           </div>
         ))}
       </Slider>
@@ -81,15 +74,6 @@ function MedSlider({ medicaments }) {
 }
 
 function Med({ medicament }) {
-  const Delete = async () => {
-    const doIt = confirm("are you sure!");
-    if (doIt) {
-      const PartnerRef = doc(db, "Med", medicament.name);
-      await deleteDoc(PartnerRef);
-      toast("Medicament suprimer", { icon: "🗑️" });
-    }
-  };
-
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -129,14 +113,7 @@ function Med({ medicament }) {
         alt={medicament.name}
       />
       <div className="medicament-content">
-        <h3 className="partner-title">
-          {medicament.name}
-          <AdminCheck>
-            <span className="admin-check" onClick={Delete}>
-              <img src="/delte.svg" alt="Delete" className="delete-icon" />
-            </span>
-          </AdminCheck>
-        </h3>
+        <h3 className="partner-title">{medicament.name}</h3>
         <p className="medicament-description">{medicament.descreption}</p>
         <div className="medicament-counter">
           <span className="product-count">

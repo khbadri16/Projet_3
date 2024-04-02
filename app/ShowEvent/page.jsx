@@ -11,7 +11,6 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db, postToJSON } from "../firebase/config";
-import Loader from "@/componenets/loader";
 import Addbutton from "@/components_3/addButton";
 import useUserdata from "@/lib/hooks";
 import { UserContext } from "@/lib/context";

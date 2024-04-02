@@ -1,8 +1,7 @@
 "use client";
-import { auth, db } from "@/app/firebase/config";
+import { db } from "@/app/firebase/config";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Terminer from "./Eventterminer";
 import { doc, onSnapshot } from "firebase/firestore";
 
 export default function Eventcontent({ events }) {
@@ -11,25 +10,7 @@ export default function Eventcontent({ events }) {
     : null;
 }
 export function EventC({ event }) {
-  const [ifyes, setIfyes] = useState(event.time);
-  let uid = null;
-  if (auth.currentUser) {
-    if (auth.currentUser.uid == "MQM0JYgIY4M5dMvLS6XHohqD6Ow2") {
-      uid = true;
-    }
-  }
-
   const eventRef = doc(db, "Event", event.slug);
-
-  useEffect(() => {
-    const unsubscribe = onSnapshot(eventRef, (doc) => {
-      if (doc.exists()) {
-        setIfyes(doc.data().time);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [eventRef]);
   const createdAt = new Date(event.createdAt.seconds * 1000);
   const formattedDate = createdAt.toLocaleString();
   return (
@@ -52,7 +33,7 @@ export function EventC({ event }) {
 
       <div className="container_3">
         <p>{event.category}</p>
-        {ifyes ? (
+        {event.time ? (
           <h3 style={{ color: "green", fontWeight: "bold" }}>
             événement en cours
           </h3>
@@ -68,21 +49,6 @@ export function EventC({ event }) {
                 </button>
               </Link>
             </p>
-            {uid && (
-              <>
-                <Terminer event={event} />
-                <Link href={`/Event/${event.slug}/`}>
-                  <div className="edit-iconn">
-                    <img
-                      src="/edit.svg"
-                      alt="Edit Logo"
-                      width="30"
-                      height="30"
-                    />
-                  </div>
-                </Link>
-              </>
-            )}
           </div>
         </div>
       </div>

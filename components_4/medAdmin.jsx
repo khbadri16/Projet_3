@@ -1,19 +1,21 @@
 "use client";
+import { useState, useEffect } from "react";
+import { FcSearch } from "react-icons/fc";
 import {
   collection,
-  deleteDoc,
-  doc,
   getDocs,
   query,
+  doc,
+  deleteDoc,
   updateDoc,
 } from "firebase/firestore";
 import Loading from "./Loadin";
-import { useEffect, useState } from "react";
 import { db } from "@/app/firebase/config";
 import toast from "react-hot-toast";
 
 export default function ShowMedAdmin() {
   const [medicaments, setMedicaments] = useState(null);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     async function fetchMed() {
@@ -40,7 +42,28 @@ export default function ShowMedAdmin() {
   if (!medicaments) {
     return <Loading />;
   }
-  return <Medadmin medicaments={medicaments} />;
+
+  const filteredMedicaments = medicaments.filter((med) =>
+    med.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  return (
+    <>
+      <div className="parent-container">
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Rechercher un médicament"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="search-input"
+          />
+          <FcSearch className="search-icon" />
+        </div>
+      </div>
+      <Medadmin medicaments={filteredMedicaments} />
+    </>
+  );
 }
 
 export function Medadmin({ medicaments }) {
@@ -50,7 +73,9 @@ export function Medadmin({ medicaments }) {
         <thead>
           <tr>
             <th>#</th>
+            <th>Image</th>
             <th>Nom</th>
+            <th>description</th>
             <th>number</th>
             <th>Action</th>
           </tr>
@@ -97,7 +122,19 @@ function ChangeNbproduit({ med, index }) {
     <>
       <tr>
         <td data-cell="#">{index + 1}</td>
+        <td data-cell="Image">
+          <img
+            src={med.img}
+            alt="image"
+            style={{ width: "50px", height: "auto" }}
+          />
+        </td>
         <td data-cell="Nom">{med.name}</td>
+        <td data-cell="descreption">
+          <div style={{ width: "350px", height: "auto" }}>
+            {med.descreption}
+          </div>
+        </td>
         <td data-cell="number">
           <input
             type="number"

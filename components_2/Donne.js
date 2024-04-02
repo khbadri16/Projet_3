@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 export default function Donne() {
   const userData = useUserdata();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = ["/pic.png", "/pic2.jpg"];
+  const images = ["/pic1.jpg", "/pic66.jpg"];
 
   useEffect(() => {
     const interval = setInterval(() => {

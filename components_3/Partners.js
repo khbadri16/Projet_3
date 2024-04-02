@@ -2,21 +2,10 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { db } from "@/app/firebase/config";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  limit,
-  query,
-} from "firebase/firestore";
-import Link from "next/link";
+import { collection, getDocs, limit, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import Slider from "react-slick";
-import AdminCheck from "@/componenets/Admincheck";
-import { UserContext } from "@/lib/context";
-import useUserdata from "@/lib/hooks";
+import Loading from "@/components_4/Loadin";
 
 export default function ShowPartner() {
   const [partners, setPartners] = useState(null);
@@ -44,21 +33,20 @@ export default function ShowPartner() {
   }, []);
 
   if (!partners) {
-    return <h5>Loading...</h5>;
+    return <Loading />;
   }
   return <Parslider partners={partners} />;
 }
 
 function Parslider({ partners }) {
-  const userData = useUserdata();
   var settings = {
     dots: true,
-    infinite: true,
+    infinite: partners.length > 1,
     speed: 500,
-    slidesToShow: 1, // Show only one slide at a time
+    slidesToShow: 1,
     slidesToScroll: 1,
-    centerMode: true,
-    centerPadding: "0", // No padding at the sides
+    centerMode: false,
+    centerPadding: "0",
     prevArrow: (
       <button className="slick-prev" style={{ color: "black" }}>
         Previous
@@ -76,9 +64,7 @@ function Parslider({ partners }) {
       <Slider {...settings}>
         {partners.map((partner) => (
           <div key={partner.name}>
-            <UserContext.Provider value={userData}>
-              <Partnerr partner={partner} />
-            </UserContext.Provider>
+            <Partnerr partner={partner} />
           </div>
         ))}
       </Slider>
@@ -87,29 +73,13 @@ function Parslider({ partners }) {
 }
 
 function Partnerr({ partner }) {
-  const Delete = async () => {
-    const doIt = confirm("are you sure!");
-    if (doIt) {
-      const PartnerRef = doc(db, "Partner", partner.name);
-      await deleteDoc(PartnerRef);
-      toast("Partnaire suprimer", { icon: "🗑️" });
-    }
-  };
-
   return (
     <div className="partner-slider">
       <div className="partner-container">
         <div className="partner-card">
           <img className="partner-image" src={partner.img} alt={partner.name} />
           <div className="partner-content">
-            <h3 className="partner-title">
-              {partner.name}
-              <AdminCheck>
-                <span className="admin-check" onClick={Delete}>
-                  <img src="/delte.svg" alt="Delete" className="delete-icon" />
-                </span>
-              </AdminCheck>
-            </h3>
+            <h3 className="partner-title">{partner.name}</h3>
             <p className="partner-description">{partner.descreption}</p>
             <div className="social-logos-container">
               {partner.Facebook && (

@@ -6,7 +6,7 @@ const EventComponent = () => {
   return (
     <Link href="/Event">
       <div className="event-container">
-        <div className="image-container">
+        <div className="image-container" style={{ backgroundColor: "#009879" }}>
           <FaCalendarAlt className="icon" />
         </div>
         <p className="text">Ajouter un Événement</p>

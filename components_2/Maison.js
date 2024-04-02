@@ -8,7 +8,13 @@ import React, { useEffect, useState } from "react";
 export default function Maisonpr() {
   const userData = useUserdata();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = ["/pic3.jpg", "/pic4.jpg"];
+  const images = [
+    "/pic3.jpg",
+    "/pic4.jpg",
+    "/pic5.jpg",
+    "/pic6.jpg",
+    "/pic7.jpg",
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {

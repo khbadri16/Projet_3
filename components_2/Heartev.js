@@ -18,23 +18,27 @@ export default function Hearte({ post }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const postsCollection = collection(db, "Event");
-      const q = query(postsCollection, where("slug", "==", post.slug));
+      const eventCollections = [
+        collection(db, "Event"),
+        collection(db, "Event A"),
+      ];
+      for (const eventsCollection of eventCollections) {
+        const q = query(eventsCollection, where("slug", "==", post.slug));
+        const querySnapshot = await getDocs(q);
 
-      const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          const postDoc = querySnapshot.docs[0];
+          const documentReference = postDoc.ref;
+          setPostRef(documentReference);
 
-      if (!querySnapshot.empty) {
-        const postDoc = querySnapshot.docs[0];
-        const documentReference = postDoc.ref;
-        setPostRef(documentReference);
+          const unsubscribe = onSnapshot(documentReference, (snapshot) => {
+            if (snapshot.exists()) {
+              setHeartCount(snapshot.data().heartCount || 0);
+            }
+          });
 
-        const unsubscribe = onSnapshot(documentReference, (snapshot) => {
-          if (snapshot.exists()) {
-            setHeartCount(snapshot.data().heartCount || 0);
-          }
-        });
-
-        return () => unsubscribe();
+          return () => unsubscribe();
+        }
       }
     };
 
@@ -58,7 +62,9 @@ export default function Hearte({ post }) {
 
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
-      <button onClick={addHeart}>💗 {heartCount}</button>
+      <button onClick={addHeart} className="transparent-background-button">
+        💗 {heartCount}
+      </button>
     </div>
   );
 }

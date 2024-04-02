@@ -12,9 +12,11 @@ import {
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Titre from "./Title";
+import { FcSearch } from "react-icons/fc";
 
 export default function ShowParticipant() {
   const [participants, setParticipants] = useState(null);
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     async function fetchParticipants() {
@@ -41,10 +43,24 @@ export default function ShowParticipant() {
   if (!participants) {
     return <Loading />;
   }
+  const filtertype = participants.filter((part) =>
+    part.Type.toLowerCase().includes(filter.toLowerCase())
+  );
   return (
     <>
-      <Titre titre={"Liste des Participant au Don du Sang"} />
-      <Participantpr participants={participants} />
+      <div className="parent-container">
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Rechercher un groupe sanguin"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="search-input"
+          />
+          <FcSearch className="search-icon" />
+        </div>
+      </div>
+      <Participantpr participants={filtertype} />
     </>
   );
 }

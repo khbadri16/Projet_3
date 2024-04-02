@@ -14,6 +14,7 @@ export default function Page() {
       <UserContext.Provider value={userData}>
         <AdminCheck>
           <Sidebar />
+          <Titre titre={"Liste des Participant au Don du Sang"} />
           <ShowParticipant />
           <div style={{ height: "100px" }}></div>
         </AdminCheck>

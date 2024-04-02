@@ -27,7 +27,14 @@ export default function Terminer({ event }) {
 
   return (
     <div>
-      <button className="event-button" onClick={toggleTime}>
+      <button
+        className="event-button"
+        onClick={toggleTime}
+        style={{
+          backgroundColor: isTimeActive ? "green" : "red",
+          color: "white",
+        }}
+      >
         {isTimeActive ? "Terminer l'événement" : "Réactiver l'événement"}
       </button>
     </div>
