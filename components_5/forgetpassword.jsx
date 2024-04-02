@@ -1,9 +1,6 @@
 "use client";
 import { useState } from "react";
-import {
-  fetchSignInMethodsForEmail,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "@/app/firebase/config";
 import { MdEmail } from "react-icons/md";
@@ -14,13 +11,6 @@ function PasswordReset() {
 
   const handleSendResetEmail = async () => {
     try {
-      const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-
-      if (signInMethods.length === 0) {
-        toast.error("Invalid email address. Please enter a valid email.");
-        return;
-      }
-
       await sendPasswordResetEmail(auth, email);
       toast.success("Password reset email sent!");
       setShowModal(false);
