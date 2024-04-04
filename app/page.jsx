@@ -22,7 +22,10 @@ export default function Page() {
       </UserContext.Provider>
       <CoverWithText />
 
-      <div className="flex flex-col items-center mt-5 text-center">
+      <div
+        id="sensibilisation"
+        className="flex flex-col items-center mt-5 text-center"
+      >
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white mb-2">
           Sensibilisation
         </h1>
@@ -48,7 +51,10 @@ export default function Page() {
       <div style={{ height: "100px" }}></div>
       <Sensibilisation />
       <div style={{ height: "100px" }}></div>
-      <div className="flex flex-col items-center mt-5 text-center">
+      <div
+        id="activites-sociales"
+        className="flex flex-col items-center mt-5 text-center"
+      >
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white mb-2">
           Activités sociales
         </h1>
@@ -59,7 +65,10 @@ export default function Page() {
       </div>
       <div style={{ height: "100px" }}></div>
       <ActiviteSociale />
-      <div className="flex flex-col items-center mt-5 text-center">
+      <div
+        id="activites-accompaneiment"
+        className="flex flex-col items-center mt-5 text-center"
+      >
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold dark:text-white mb-2">
           Activités d accompaneiment
         </h1>
@@ -94,7 +103,7 @@ export default function Page() {
           Votre soutien est notre force.
         </small>
       </div>
-      <div style={{ height: "100px" }}></div>
+      <div id="partenaire" style={{ height: "100px" }}></div>
       <ShowPartner />
       <div style={{ height: "100px" }}></div>
       <div className="flex flex-col items-center mt-5 text-center">
@@ -110,7 +119,7 @@ export default function Page() {
           cancer.
         </small>
       </div>
-      <div style={{ height: "100px" }}></div>
+      <div id="med" style={{ height: "100px" }}></div>
       <ShowMed />
     </>
   );

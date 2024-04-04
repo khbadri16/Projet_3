@@ -34,9 +34,18 @@ export default function Deletacount() {
 
   return (
     <>
-      <button onClick={() => setModalVisible(true)} className="delete-button">
-        <span style={{ whiteSpace: "nowrap" }}>Supprimer mon compte</span>
-      </button>
+      <a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          setModalVisible(true);
+        }}
+        className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap text-red-600 "
+        style={{ whiteSpace: "nowrap" }}
+      >
+        Supprimer mon compte
+      </a>
+
       {modalVisible && (
         <div className="modal">
           <div className="modal-content">

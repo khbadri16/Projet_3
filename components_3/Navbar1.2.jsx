@@ -3,9 +3,12 @@ import { auth } from "@/app/firebase/config";
 import AdminCheck from "@/componenets/Admincheck";
 import Deletacount from "@/components_4/deletacount";
 import { UserContext } from "@/lib/context";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
+import { FaUser } from "react-icons/fa6";
+import { VscListSelection } from "react-icons/vsc";
+import { IoMdClose } from "react-icons/io";
+import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 export default function Navbar2() {
   const [isClick, setisClick] = useState(false);
@@ -26,63 +29,44 @@ export default function Navbar2() {
   const userDropDown = user && (
     <div className="items-center relative">
       <div className="flex items-center">
-        <button
-          onClick={() => setIsOpen3((prev) => !prev)}
-          className="text-black hover:text-blue-500 text-lg bg-transparent ml-4"
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            setIsOpen3((prev) => !prev);
+          }}
+          className="text-black hover:text-blue-500 text-lg bg-transparent ml-4 flex items-center"
         >
           {username}
-          {isOpen3 ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              class="w-4 h-4 ml-2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m19.5 8.25-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-4 h-4 ml-2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m4.5 15.75 7.5-7.5 7.5 7.5"
-              />
-            </svg>
-          )}
-        </button>
+          {isOpen3 ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
+        </a>
       </div>
       {isOpen3 && (
-        <div className="bg-white absolute top-full left-0 mt-2 w-max">
+        <div className="bg-white absolute top-full left-0 mt-2 w-auto min-w-full rounded-md shadow-md font-bold anianim ">
           <a
             href={`/${username}/`}
-            className="block px-4 py-2 hover:text-blue-500"
+            className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
           >
             Profile
           </a>
-          <button onClick={signOut} className="btn-badri">
-            Sign out
-          </button>
           <AdminCheck>
             <a
               href="/Espace_admin"
-              className="block px-4 py-2 hover:text-blue-500"
+              className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
             >
               Admin
             </a>
           </AdminCheck>
+          <a
+            href="/Espace_admin"
+            onClick={(e) => {
+              e.preventDefault();
+              signOut();
+            }}
+            className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+          >
+            Sign out
+          </a>
+
           <Deletacount />
         </div>
       )}
@@ -90,33 +74,21 @@ export default function Navbar2() {
   );
 
   const signInLink = !user && (
-    <Link href="sign_in">
-      <div className="flex items-center">
-        <button className="text-black hover:text-blue-500 bg-transparent  text-lg">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-5 h-5 mr-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-            />
-          </svg>
-          Log in
-        </button>
-      </div>
-    </Link>
+    <div className="flex items-center">
+      <a
+        href="/sign_in"
+        className="text-black hover:text-blue-500 text-lg bg-transparent ml-6 flex items-center font-bold "
+      >
+        <FaUser style={{ marginRight: "5px" }} />
+        Log in
+      </a>
+    </div>
   );
 
   return (
-    <nav className="bg-white fixed top-0 w-full z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 ">
+    <nav className="bg-white fixed top-0 w-full z-10 h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex items-center justify-between h-full space-x-5">
           <div className="flex items-center">
             <div className="flex-shrink-0 space-x-2 flex items-center">
               <img
@@ -125,7 +97,7 @@ export default function Navbar2() {
                 className="h-10 md:h-10"
                 alt="Logo"
               />
-              <a href="/" className="text-black">
+              <a href="/" className="text-black font-bold text-lg">
                 CPF
               </a>
             </div>
@@ -134,77 +106,75 @@ export default function Navbar2() {
             <div className=" flex items-center ">
               <a
                 href="/Publication"
-                className="text-black  hover:text-blue-500 text-lg ml-4"
+                className="text-black  hover:text-blue-500 text-lg  "
               >
                 Publication
               </a>
               <div className="items-center relative">
                 <div className="flex items-center">
-                  <button
-                    onClick={() => setIsOpen((prev) => !prev)}
-                    className="text-black hover:text-blue-500 text-lg bg-transparent ml-4"
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen((prev) => !prev);
+                    }}
+                    className="text-black hover:text-blue-500 text-lg ml-6 flex items-center font-bold unselectable"
                   >
                     Activité
-                    {isOpen ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-4 h-4 ml-2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-4 h-4 ml-2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                        />
-                      </svg>
-                    )}
-                  </button>
+                    {isOpen ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
+                  </a>
                 </div>
                 {isOpen && (
-                  <div className="bg-white absolute top-full left-0 mt-2 w-full">
+                  <div className="bg-white absolute top-full left-0 mt-2 w-auto min-w-full rounded-md shadow-md anianim">
                     <a
                       href="/donne_sang"
-                      className="block px-4 py-2 hover:text-blue-500"
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
                     >
                       Don du Sang
                     </a>
                     <a
                       href="/Maison_Eljiida"
-                      className="block px-4 py-2 hover:text-blue-500"
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
                     >
                       Maison Eljiida
                     </a>
                     <a
-                      href="/Medicament"
-                      className="block px-4 py-2 hover:text-blue-500"
+                      href="#med"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsOpen((prev) => !prev);
+                      }}
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
                     >
                       PharmDemande
                     </a>
-                    <a href="/" className="block px-4 py-2 hover:text-blue-500">
+                    <a
+                      href="#sensibilisation"
+                      onClick={() => {
+                        setIsOpen((prev) => !prev);
+                        return true;
+                      }}
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+                    >
                       Sensibilisation
                     </a>
-                    <a href="/" className="block px-4 py-2 hover:text-blue-500">
+                    <a
+                      href="#activites-sociales"
+                      onClick={() => {
+                        setIsOpen((prev) => !prev);
+                        return true;
+                      }}
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+                    >
                       Activités sociales
                     </a>
-                    <a href="/" className="block px-4 py-2 hover:text-blue-500">
+                    <a
+                      href="#activites-accompaneiment"
+                      onClick={() => {
+                        setIsOpen((prev) => !prev);
+                        return true;
+                      }}
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap "
+                    >
                       Accompagnements
                     </a>
                   </div>
@@ -212,55 +182,28 @@ export default function Navbar2() {
               </div>
               <div className="items-center relative">
                 <div className="flex items-center">
-                  <button
-                    onClick={() => setIsOpen1((prev) => !prev)}
-                    className="text-black hover:text-blue-500 text-lg bg-transparent ml-4"
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen1((prev) => !prev);
+                    }}
+                    className="text-black hover:text-blue-500 text-lg bg-transparent ml-6 flex items-center font-bold unselectable"
                   >
                     Evénement
-                    {isOpen1 ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-4 h-4 ml-2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-4 h-4 ml-2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                        />
-                      </svg>
-                    )}
-                  </button>
+                    {isOpen1 ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
+                  </a>
                 </div>
                 {isOpen1 && (
-                  <div className="bg-white absolute top-full left-0 mt-2 w-full">
+                  <div className="bg-white absolute top-full left-0 mt-2 w-auto min-w-full rounded-md shadow-md anianim ">
                     <a
                       href="/ShowEvent/ShowEventc"
-                      className="block px-4 py-2 hover:text-blue-500"
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
                     >
                       événement courant
                     </a>
                     <a
                       href="/ShowEvent"
-                      className="block px-4 py-2 hover:text-blue-500"
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap"
                     >
                       dernier événement
                     </a>
@@ -268,60 +211,42 @@ export default function Navbar2() {
                 )}
               </div>
               <a
-                href="/partner"
-                className="text-black  hover:text-blue-500 text-lg ml-4 "
+                href="#partenaire"
+                className="text-black  hover:text-blue-500 text-lg ml-6 unselectable"
               >
                 Partenaire
               </a>
               <div className="items-center relative">
                 <div className="flex items-center">
-                  <button
-                    onClick={() => setIsOpen2((prev) => !prev)}
-                    className="text-black hover:text-blue-500 text-lg bg-transparent ml-4"
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen2((prev) => !prev);
+                    }}
+                    className="text-black hover:text-blue-500 text-lg bg-transparent ml-6 flex items-center font-bold unselectable"
                   >
                     About
-                    {isOpen2 ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-4 h-4 ml-2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-4 h-4 ml-2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                        />
-                      </svg>
-                    )}
-                  </button>
+                    {isOpen2 ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
+                  </a>
                 </div>
                 {isOpen2 && (
-                  <div className="bg-white absolute top-full left-0 mt-2 w-full">
-                    <a href="" className="block px-4 py-2 hover:text-blue-500">
+                  <div className="bg-white absolute top-full left-0 mt-2 w-auto min-w-full rounded-md shadow-md anianim ">
+                    <a
+                      href="#"
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+                    >
                       Qui somme nous
                     </a>
-                    <a href="" className="block px-4 py-2 hover:text-blue-500">
+                    <a
+                      href="#"
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+                    >
                       Comment nous rejoindre
                     </a>
-                    <a href="" className="block px-4 py-2 hover:text-blue-500">
+                    <a
+                      href="#"
+                      className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap"
+                    >
                       Comment pouvez-vous nous aider
                     </a>
                   </div>
@@ -346,228 +271,160 @@ export default function Navbar2() {
            focus:ring-2 focus:ring-inset focus:ring-blue-500"
               onClick={toggleNavbar}
             >
-              {isClick ? (
-                <svg
-                  className="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                </svg>
-              )}
+              {isClick ? <IoMdClose /> : <VscListSelection />}
             </button>
           </div>
         </div>
       </div>
       {isClick && (
-        <div className="md:hidden">
+        <div className="md:hidden bg-white">
           <div className="px-2 pt-2 pb-3 space-y-3 sm:px-3">
             <a
               href="/Publication"
-              className="text-black hover:text-blue-500 text-lg ml-4"
+              className="text-black hover:text-blue-500 text-lg ml-4 unselectable"
             >
               Publication
             </a>
             <div className="relative">
-              <button
-                onClick={() => setIsOpen((prev) => !prev)}
-                className="text-black hover:text-blue-500 text-lg bg-transparent ml-4"
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsOpen((prev) => !prev);
+                }}
+                className="text-black hover:text-blue-500 text-lg ml-4 flex items-center font-bold unselectable"
               >
                 Activité
-                {isOpen ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-4 h-4 ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-4 h-4 ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                    />
-                  </svg>
-                )}
-              </button>
+                {isOpen ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
+              </a>
               {isOpen && (
-                <div className="bg-white absolute mt-2 w-full z-10">
+                <div className="bg-white absolute top-full left-0 mt-2 w-auto min-w-full rounded-md shadow-md z-10 anianim ">
                   <a
                     href="/donne_sang"
-                    className="block px-4 py-2 hover:text-blue-500"
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
                   >
                     Don du Sang
                   </a>
                   <a
                     href="/Maison_Eljiida"
-                    className="block px-4 py-2 hover:text-blue-500"
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
                   >
                     Maison Eljiida
                   </a>
                   <a
-                    href="/Medicament"
-                    className="block px-4 py-2 hover:text-blue-500"
+                    href="#med"
+                    onClick={() => {
+                      setIsOpen((prev) => !prev);
+                      setisClick((prev) => !prev);
+                      return true;
+                    }}
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
                   >
                     PharmDemande
                   </a>
-                  <a href="" className="block px-4 py-2 hover:text-blue-500">
+                  <a
+                    href="#sensibilisation"
+                    onClick={() => {
+                      setIsOpen((prev) => !prev);
+                      setisClick((prev) => !prev);
+                      return true;
+                    }}
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+                  >
                     Sensibilisation
                   </a>
-                  <a href="" className="block px-4 py-2 hover:text-blue-500">
+                  <a
+                    href="#activites-sociales"
+                    onClick={() => {
+                      setIsOpen((prev) => !prev);
+                      setisClick((prev) => !prev);
+                      return true;
+                    }}
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+                  >
                     Activités sociales
                   </a>
-                  <a href="" className="block px-4 py-2 hover:text-blue-500">
+                  <a
+                    href="#activites-accompaneiment"
+                    onClick={() => {
+                      setIsOpen((prev) => !prev);
+                      setisClick((prev) => !prev);
+                      return true;
+                    }}
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap "
+                  >
                     Accompagnements
                   </a>
                 </div>
               )}
             </div>
+
             <div className="relative">
-              <button
-                onClick={() => setIsOpen1((prev) => !prev)}
-                className="text-black hover:text-blue-500 text-lg bg-transparent ml-4"
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsOpen1((prev) => !prev);
+                }}
+                className="text-black hover:text-blue-500 text-lg bg-transparent ml-4 flex items-center font-bold unselectable"
               >
                 Evénement
-                {isOpen1 ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-4 h-4 ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-4 h-4 ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                    />
-                  </svg>
-                )}
-              </button>
+                {isOpen1 ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
+              </a>
               {isOpen1 && (
-                <div className="bg-white absolute mt-2 w-full z-10">
+                <div className="bg-white absolute top-full left-0 mt-2 w-auto min-w-full rounded-md shadow-md z-10 anianim ">
                   <a
                     href="/ShowEvent/ShowEventc"
-                    className="block px-4 py-2 hover:text-blue-500"
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
                   >
-                    événement courant
+                    Evénement courant
                   </a>
                   <a
                     href="/ShowEvent"
-                    className="block px-4 py-2 hover:text-blue-500"
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap"
                   >
-                    dernier événement
+                    Dernier événement
                   </a>
                 </div>
               )}
             </div>
             <a
-              href="/partner"
-              className="text-black hover:text-blue-500 text-lg ml-4 "
+              href="#partenaire"
+              onClick={() => {
+                setisClick((prev) => !prev);
+                return true;
+              }}
+              className="text-black hover:text-blue-500 text-lg bg-transparent ml-4 flex items-center unselectable"
             >
               Partenaire
             </a>
             <div className="relative">
-              <button
-                onClick={() => setIsOpen2((prev) => !prev)}
-                className="text-black hover:text-blue-500 text-lg bg-transparent ml-4"
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsOpen2((prev) => !prev);
+                }}
+                className="text-black hover:text-blue-500 text-lg bg-transparent ml-4 flex items-center font-bold unselectable "
               >
                 About
-                {isOpen2 ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-4 h-4 ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-4 h-4 ml-2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                    />
-                  </svg>
-                )}
-              </button>
+                {isOpen2 ? <RiArrowDropDownLine /> : <RiArrowDropUpLine />}
+              </a>
               {isOpen2 && (
-                <div className="bg-white absolute mt-2 w-full z-10">
-                  <a href="" className="block px-4 py-2 hover:text-blue-500">
+                <div className="bg-white absolute top-full left-0 mt-2 w-auto min-w-full rounded-md shadow-md  anianim ">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+                  >
                     Qui somme nous
                   </a>
-                  <a href="" className="block px-4 py-2 hover:text-blue-500">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap border-b border-gray-200"
+                  >
                     Comment nous rejoindre
                   </a>
-                  <a href="" className="block px-4 py-2 hover:text-blue-500">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 hover:bg-gray-200 whitespace-nowrap"
+                  >
                     Comment pouvez-vous nous aider
                   </a>
                 </div>

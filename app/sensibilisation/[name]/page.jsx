@@ -35,7 +35,7 @@ export default function Page({ params }) {
     };
 
     fetchData();
-  }, [name]);
+  }, [decodedName]);
 
   if (!event) {
     return;

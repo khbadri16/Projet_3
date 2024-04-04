@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+.anianim {
+  animation: dropdownAnimation 0.5s ease forwards;
+}
+
+@keyframes dropdownAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /**************med search**********/
 .parent-container {
   display: flex;
@@ -1874,16 +1898,16 @@ span.product-count:hover {
 }
 
 .loader-logo {
-  width: 200px; /* Adjust the width and height as needed */
+  width: 200px;
   height: 200px;
-  animation: spin 4s linear infinite; /* Slow down the rotation to 4 seconds */
+  animation: spin 4s linear infinite;
 }
 
 .loading-bar {
-  width: 200px; /* Adjust the width as needed */
-  height: 10px; /* Adjust the height as needed */
-  background-color: #ddd; /* Adjust the background color */
-  margin-bottom: 20px; /* Adjust the margin as needed */
+  width: 200px;
+  height: 10px;
+  background-color: #ddd;
+  margin-bottom: 20px;
 }
 
 @keyframes spin {
@@ -1894,6 +1918,20 @@ span.product-count:hover {
     transform: rotate(360deg);
   }
 }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .loader-logo,
+  .loading-bar {
+    width: 80px; /* Adjust the width for smaller screens */
+    height: 80px; /* Adjust the height for the logo to maintain aspect ratio */
+  }
+  .loading-bar {
+    height: 5px; /* Adjust the height for the loading bar */
+  }
+}
+
+/******/
 
 .modal {
   display: flex;
